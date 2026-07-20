@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from .exceptions import HabitAlreadyCompletedException
+
 
 User = get_user_model()
 
@@ -17,6 +19,8 @@ class Habit(models.Model):
         return self.title
 
     def complete(self):
+        if self.complete_today:
+            raise HabitAlreadyCompletedException("Привычка уже была отмечена сегодня")
         self.complete_today = True
         self.streak += 1
         self.save()

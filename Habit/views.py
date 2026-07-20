@@ -1,8 +1,22 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
+
+from .models import Habit
+
+
+class HabitCreateView(LoginRequiredMixin, CreateView):
+    model = Habit
+    fields = ['title',]
+    template_name = 'Habit/habit_form.html'
+    success_url = reverse_lazy('habits_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class SignUpView(CreateView):
@@ -13,4 +27,5 @@ class SignUpView(CreateView):
 
 @login_required
 def habits_list(request):
-    return render(request, 'Habit/habits_list.html')
+    habits = Habit.objects.filter(user=request.user).order_by('-creation_date')
+    return render(request, 'Habit/habits_list.html', {'habits': habits})

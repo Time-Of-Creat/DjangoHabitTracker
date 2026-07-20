@@ -4,5 +4,16 @@
 
 {% block content %}
     <h1>Список привычек</h1>
-    <li>Пока нет привычек. Создай первую!</li>
+    <ul>
+        {% for habit in habits %}
+            <li>
+                <span>
+                    {{ habit.title }} 🔥 {{ habit.streak }}
+                </span>
+            </li>
+        {% empty %}
+            <li>Пока нет привычек. Создай первую!</li>
+        {% endfor %}
+    </ul>
+    
 {% endblock %}
