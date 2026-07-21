@@ -1,11 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 from .models import Habit
+from .exceptions import HabitAlreadyCompletedException
 
 
 class HabitCreateView(LoginRequiredMixin, CreateView):
@@ -23,6 +25,17 @@ class SignUpView(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')
+
+
+@login_required
+def task_complete(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    try:
+        habit.complete()
+    except HabitAlreadyCompletedException:
+        messages.error(request, f"Привычка {habit} уже была отмечена сегодня!")
+    
+    return redirect('habits_list')
 
 
 @login_required
