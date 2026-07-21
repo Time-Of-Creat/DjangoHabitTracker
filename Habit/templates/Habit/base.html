@@ -3,8 +3,21 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav>
-        
+    <nav style="color: red;">
+        <a href="{% url 'habits_list' %}">📝 Habits Tracker</a>
+        <div>
+            {% if user.is_authenticated %}
+                <span>Привет, {{ user.username }}!</span>
+                <a href="{% url 'habit_create' %}">+ Добавить привычку</a>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'signup' %}">Регистрация</a>
+            {% endif %}
+        </div>
     </nav>
     {% block content %}
     {% endblock %}
