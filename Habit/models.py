@@ -31,3 +31,9 @@ class Habit(models.Model):
         self.complete_today = False
         self.streak -= 1
         self.save()
+    
+    def reset_daily(self):
+        if not self.complete_today:
+            self.streak = 0
+        self.complete_today = False
+        self.save()
