@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from .exceptions import HabitAlreadyCompletedException
+from .exceptions import HabitAlreadyCompletedException, HabitAlreadyCanceledComplitionException
 
 
 User = get_user_model()
@@ -23,4 +23,11 @@ class Habit(models.Model):
             raise HabitAlreadyCompletedException("Привычка уже была отмечена сегодня")
         self.complete_today = True
         self.streak += 1
+        self.save()
+    
+    def cancel_complition(self):
+        if not self.complete_today:
+            raise HabitAlreadyCanceledComplitionException("Привычка ещё не была отмечена")
+        self.complete_today = False
+        self.streak -= 1
         self.save()

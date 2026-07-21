@@ -7,5 +7,6 @@ urlpatterns = [
     path("<int:pk>/edit/", views.HabitUpdateView.as_view(), name="habit_update"),
     path("<int:pk>/delete/", views.HabitDeleteView.as_view(), name="habit_delete"),
     path("<int:pk>/complete/", views.habit_complete, name="habit_complete"),
+    path("<int:pk>/cancel/", views.habit_cancel, name="habit_cancel"),
     path('signup/', views.SignUpView.as_view(), name='signup'),
 ]
