@@ -3,13 +3,15 @@
 {% block title %}Удаление привычки{% endblock %}
 
 {% block content %}
-    <h1>Удаление привычки</h1>
+    <div class="form-container">
+        <h1>Удаление привычки</h1>
 
-    <p>Вы уверены, что хотите удалить привычку "{{ object.title }}"?</p>
+        <p>Вы уверены, что хотите удалить привычку "{{ object.title }}"?</p>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Да, удалить</button>
-        <a href="{% url 'habits_list' %}">Отмена</a>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Да, удалить</button>
+            <a href="{% url 'habits_list' %}">Отмена</a>
+        </form>
+    </div>
 {% endblock %}

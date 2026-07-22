@@ -3,10 +3,12 @@
 {% block title %}Создание привычки{% endblock %}
 
 {% block content %}
-    <h1>Новая привычка</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Создать привычку</button>
-    </form>
+    <div class="form-container">
+        <h1>Новая привычка</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Создать привычку</button>
+        </form>
+    </div>
 {% endblock %}
