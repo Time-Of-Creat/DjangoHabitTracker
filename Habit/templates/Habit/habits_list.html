@@ -7,18 +7,22 @@
     <ul>
         {% for habit in habits %}
             <li>
-                <span style="{% if habit.complete_today %}text-decoration: line-through;{% endif %}">
-                    {{ habit.title }} 🔥 {{ habit.streak }}
+                <span class="habit-streak">
+                    🔥 {{ habit.streak }}
                 </span>
-
+                
                 {% if habit.complete_today %}
-                    <a href="{% url 'habit_cancel' habit.pk %}">[✗ Отменить]</a>
+                    <a href="{% url 'habit_cancel' habit.pk %}" style="text-decoration: line-through;" class="habit-title">
+                        {{ habit.title }}
+                    </a>
                 {% else %}
-                    <a href="{% url 'habit_complete' habit.pk %}">[✓ Отметить]</a>
+                    <a href="{% url 'habit_complete' habit.pk %}" class="habit-title">
+                        {{ habit.title }}
+                    </a>
                 {% endif %}
 
-                <a href="{% url 'habit_update' habit.pk %}">[Ред.]</a>
-                <a href="{% url 'habit_delete' habit.pk %}" style="color: red;">[Удалить]</a>
+                <a href="{% url 'habit_update' habit.pk %}" class="habit-shortcut">✏️</a>
+                <a href="{% url 'habit_delete' habit.pk %}" class="habit-shortcut">X</a>
             </li>
         {% empty %}
             <li>Пока нет привычек. Создай первую!</li>
