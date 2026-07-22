@@ -153,3 +153,10 @@ nav::after {
     color: white;
     font-size: 18px;
 }
+
+.cancel-text {
+    position: relative;
+    color: #333333;
+    font-size: 14px;
+    left: 36%;
+}

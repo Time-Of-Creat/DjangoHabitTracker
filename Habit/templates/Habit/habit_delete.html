@@ -11,7 +11,7 @@
         <form method="post">
             {% csrf_token %}
             <button type="submit">Да, удалить</button>
-            <a href="{% url 'habits_list' %}">Отмена</a>
+            <a href="{% url 'habits_list' %}" class="cancel-text">Отмена</a>
         </form>
     </div>
 {% endblock %}
