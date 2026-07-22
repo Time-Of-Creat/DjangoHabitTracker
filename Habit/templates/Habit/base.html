@@ -7,14 +7,13 @@
 </head>
 <body>
     <nav style="color: red;">
-        <a href="{% url 'habits_list' %}">📝 Habits Tracker</a>
-        <div>
+        <a class="nav-logo" href="{% url 'habits_list' %}">📝 Habits Tracker</a>
+        <div class="nav-buttons">
             {% if user.is_authenticated %}
-                <span>Привет, {{ user.username }}!</span>
                 <a href="{% url 'habit_create' %}">+ Добавить привычку</a>
-                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                <form action="{% url 'logout' %}" method="post" style="display:inline;" class="logout-button">
                     {% csrf_token %}
-                    <button type="submit">Выйти</button>
+                    <button type="submit" class="logout-button-button">Выйти</button>
                 </form>
             {% else %}
                 <a href="{% url 'login' %}">Войти</a>
